@@ -92,7 +92,7 @@ public partial class ThisApp : ThisAppSE
 
     public static void SetStatus(TypeOfMessage st, string status, params string[] args)
     {
-        var format = /*SH.Format2*/ string.Format(status, args);
+        var format = /*SHFormat.Format2*/ string.Format(status, args);
         if (format.Trim() != string.Empty)
         {
             if (StatusSetted == null)
