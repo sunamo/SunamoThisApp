@@ -4,7 +4,7 @@ namespace SunamoThisApp;
 
 public partial class ThisApp : ThisAppSE
 {
-    public static Langs l = Langs.en;
+    //public static Langs l = Langs.en;
     public static bool useShortAsDt = true;
     public static bool runInDebug = true;
     /// <summary>
@@ -92,7 +92,7 @@ public partial class ThisApp : ThisAppSE
 
     public static void SetStatus(TypeOfMessage st, string status, params string[] args)
     {
-        var format = /*SHFormat.Format2*/ string.Format(status, args);
+        var format = /*string.Format*/ string.Format(status, args);
         if (format.Trim() != string.Empty)
         {
             if (StatusSetted == null)

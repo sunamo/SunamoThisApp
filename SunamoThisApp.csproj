@@ -3,13 +3,13 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <Version>24.1.24.1</Version>
+    <Version>24.2.1.2</Version>
     <Description>One of base foundation for sunamo's app platform - second is SunamoPlatformUwpInterop</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="SunamoLang" Version="24.1.14.1" />
-    <PackageReference Include="SunamoTypeOfMessage" Version="24.1.14.1" />
-    <PackageReference Include="SunamoXlf" Version="24.1.14.1" />
+    <PackageReference Include="SunamoExceptions" Version="24.2.1.1" />
+    <PackageReference Include="SunamoTypeOfMessage" Version="24.2.1.1" />
+    <PackageReference Include="SunamoValues" Version="24.2.1.1" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>$(DefineConstants);ASYNC</DefineConstants>
