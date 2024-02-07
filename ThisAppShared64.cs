@@ -83,12 +83,14 @@ public partial class ThisApp : ThisAppSE
         }
     }
 
-    public static event SetStatusDelegate StatusSetted;
+
 
     public static void SetStatusXlf(TypeOfMessage st, string key)
     {
         SetStatus(st, i18n(key));
     }
+
+    public static event SetStatusDelegate StatusSetted;
 
     public static void SetStatus(TypeOfMessage st, string status, params string[] args)
     {
