@@ -1,4 +1,4 @@
-namespace SunamoThisApp.Helpers;
+namespace SunamoThisApp;
 
 
 public partial class StatusHelperSunamo

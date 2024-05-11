@@ -1,4 +1,4 @@
-namespace SunamoThisApp._sunamo;
+namespace SunamoThisApp;
 
 internal class SHTrim
 {
