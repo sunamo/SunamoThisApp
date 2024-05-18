@@ -7,7 +7,6 @@
     <Description>One of base foundation for sunamo's app platform - second is SunamoPlatformUwpInterop</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="SunamoTypeOfMessage" Version="24.2.6.2" />
     <Compile Include="..\SunamoEnums\Enums\Langs.cs" Link="_linked\SunamoEnums\Enums\Langs.cs" />
     <Compile Include="..\SunamoValues\AllStrings.cs" Link="_linked\SunamoValues\AllStrings.cs" />
     <Compile Include="..\SunamoExceptions\Data\ResultWithException.cs" Link="_linked\SunamoExceptions\Data\ResultWithException.cs" />
