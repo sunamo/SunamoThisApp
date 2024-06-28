@@ -1,3 +1,5 @@
+
+namespace SunamoThisApp;
 public class TranslateAble
 {
     

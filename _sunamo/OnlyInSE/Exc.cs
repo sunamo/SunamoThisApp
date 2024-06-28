@@ -1,3 +1,5 @@
+
+namespace SunamoThisApp;
 using System.Diagnostics;
 using System.Text;
 
