@@ -1,7 +1,7 @@
 namespace SunamoThisApp;
 
 
-internal class ResultWithException<T>
+public class ResultWithExceptionTA<T>
 {
     internal T Data { get; set; }
     /// <summary>
@@ -9,22 +9,22 @@ internal class ResultWithException<T>
     ///     Usage: FubuCsprojFile
     /// </summary>
     internal string exc { get; set; }
-    internal ResultWithException(T data)
+    internal ResultWithExceptionTA(T data)
     {
         Data = data;
     }
-    internal ResultWithException(string exc)
+    internal ResultWithExceptionTA(string exc)
     {
         this.exc = exc;
     }
-    internal ResultWithException(Exception exc)
+    internal ResultWithExceptionTA(Exception exc)
     {
         this.exc = Exceptions.TextOfExceptions(exc);
     }
     /// <summary>
     /// Pro případ že data josu string což je typ i exception
     /// </summary>
-    internal ResultWithException()
+    internal ResultWithExceptionTA()
     {
     }
 }

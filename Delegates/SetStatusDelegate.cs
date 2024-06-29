@@ -1,3 +1,3 @@
 namespace SunamoThisApp;
 
-public delegate void SetStatusDelegate(TypeOfMessage t, string message);
+public delegate void SetStatusDelegate(TypeOfMessageTA t, string message);

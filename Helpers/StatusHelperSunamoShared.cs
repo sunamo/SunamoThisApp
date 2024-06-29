@@ -3,7 +3,7 @@ namespace SunamoThisApp;
 
 public partial class StatusHelperSunamo
 {
-    public static TypeOfMessage IsStatusMessage(string resp)
+    public static TypeOfMessageTA IsStatusMessage(string resp)
     {
         var r = resp;
         return IsStatusMessage(ref r);
@@ -13,33 +13,33 @@ public partial class StatusHelperSunamo
     /// If dont start with none, return Ordinal
     /// </summary>
     /// <param name = "resp"></param>
-    public static TypeOfMessage IsStatusMessage(ref string resp)
+    public static TypeOfMessageTA IsStatusMessage(ref string resp)
     {
         if (SHTrim.TrimIfStartsWith(ref resp, error))
         {
-            return TypeOfMessage.Error;
+            return TypeOfMessageTA.Error;
         }
         else if (SHTrim.TrimIfStartsWith(ref resp, warning))
         {
-            return TypeOfMessage.Warning;
+            return TypeOfMessageTA.Warning;
         }
         else if (SHTrim.TrimIfStartsWith(ref resp, success))
         {
-            return TypeOfMessage.Success;
+            return TypeOfMessageTA.Success;
         }
         else if (SHTrim.TrimIfStartsWith(ref resp, info))
         {
-            return TypeOfMessage.Information;
+            return TypeOfMessageTA.Information;
         }
         else if (SHTrim.TrimIfStartsWith(ref resp, information))
         {
-            return TypeOfMessage.Information;
+            return TypeOfMessageTA.Information;
         }
         else if (SHTrim.TrimIfStartsWith(ref resp, appeal))
         {
-            return TypeOfMessage.Appeal;
+            return TypeOfMessageTA.Appeal;
         }
 
-        return TypeOfMessage.Ordinal;
+        return TypeOfMessageTA.Ordinal;
     }
 }

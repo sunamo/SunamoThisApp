@@ -85,14 +85,14 @@ public partial class ThisApp : ThisAppSE
 
 
 
-    public static void SetStatusXlf(TypeOfMessage st, string key)
+    public static void SetStatusXlf(TypeOfMessageTA st, string key)
     {
         SetStatus(st, i18n(key));
     }
 
     public static event SetStatusDelegate StatusSetted;
 
-    public static void SetStatus(TypeOfMessage st, string status, params string[] args)
+    public static void SetStatus(TypeOfMessageTA st, string status, params string[] args)
     {
         var format = /*string.Format*/ string.Format(status, args);
         if (format.Trim() != string.Empty)
@@ -132,35 +132,35 @@ public partial class ThisApp : ThisAppSE
 
     public static void Success(string v, params string[] o)
     {
-        SetStatus(TypeOfMessage.Success, v, o);
+        SetStatus(TypeOfMessageTA.Success, v, o);
     }
 
     public static void Info(string v, params string[] o)
     {
-        SetStatus(TypeOfMessage.Information, v, o);
+        SetStatus(TypeOfMessageTA.Information, v, o);
     }
 
     public static void Error(string v, params string[] o)
     {
-        SetStatus(TypeOfMessage.Error, v, o);
+        SetStatus(TypeOfMessageTA.Error, v, o);
     }
 
     public static void Warning(string v, params string[] o)
     {
-        SetStatus(TypeOfMessage.Warning, v, o);
+        SetStatus(TypeOfMessageTA.Warning, v, o);
     }
 
     public static void Ordinal(string v, params string[] o)
     {
-        SetStatus(TypeOfMessage.Ordinal, v, o);
+        SetStatus(TypeOfMessageTA.Ordinal, v, o);
     }
 
     public static void Appeal(string v, params string[] o)
     {
-        SetStatus(TypeOfMessage.Appeal, v, o);
+        SetStatus(TypeOfMessageTA.Appeal, v, o);
     }
 
-    public static void ResultWithException<T>(ResultWithException<T> result, string replacementWhenSuccess = null, bool showToStringWhenSuccess = false)
+    public static void ResultWithException<T>(ResultWithExceptionTA<T> result, string replacementWhenSuccess = null, bool showToStringWhenSuccess = false)
     {
         if (!EqualityComparer<T>.Default.Equals(result.Data, default(T)))
         {
