@@ -1,4 +1,4 @@
-namespace SunamoThisApp;
+namespace SunamoThisApp._sunamo.SunamoXlfKeys;
 
 
 

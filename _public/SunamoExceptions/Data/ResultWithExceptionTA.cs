@@ -1,4 +1,4 @@
-namespace SunamoThisApp;
+namespace SunamoThisApp._public.SunamoExceptions.Data;
 
 
 public class ResultWithExceptionTA<T>

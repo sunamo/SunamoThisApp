@@ -1,4 +1,4 @@
-namespace SunamoThisApp;
+namespace SunamoThisApp._sunamo.SunamoStringSubstring;
 internal class SHSubstring
 {
     internal static string SubstringIfAvailable(string input, int lenght)
