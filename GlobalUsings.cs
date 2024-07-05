@@ -19,3 +19,6 @@ global using SunamoThisApp._public.SunamoEnums.Enums;
 global using SunamoThisApp._public.SunamoExceptions.Data;
 global using SunamoThisApp._sunamo.SunamoExceptions.OnlyInSE;
 global using SunamoThisApp._sunamo.SunamoExceptions._AddedToAllCsproj;
+global using System.Diagnostics;
+global using System.Net;
+global using System.Threading.Tasks;
