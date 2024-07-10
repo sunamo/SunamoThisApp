@@ -158,13 +158,13 @@ public class ThisApp : ThisAppSE
         SetStatus(TypeOfMessageTA.Appeal, v, o);
     }
 
-    public static void ResultWithException<T>(ResultWithExceptionTA<T> result, string replacementWhenSuccess = null, bool showToStringWhenSuccess = false)
+    public static void ResultWithException<T>(T Data, string exc, string replacementWhenSuccess = null, bool showToStringWhenSuccess = false)
     {
-        if (!EqualityComparer<T>.Default.Equals(result.Data, default(T)))
+        if (!EqualityComparer<T>.Default.Equals(Data, default(T)))
         {
             if (showToStringWhenSuccess)
             {
-                Info(result.Data.ToString());
+                Info(Data.ToString());
             }
             else if (replacementWhenSuccess != null)
             {
@@ -173,7 +173,7 @@ public class ThisApp : ThisAppSE
         }
         else
         {
-            Error(result.exc);
+            Error(exc);
         }
     }
 
