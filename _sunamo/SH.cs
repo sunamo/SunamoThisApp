@@ -1,4 +1,4 @@
-//namespace SunamoThisApp._sunamo.SunamoExceptions._AddedToAllCsproj;
+namespace SunamoThisApp._sunamo;
 
 internal class SH
 {
