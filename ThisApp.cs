@@ -1,7 +1,19 @@
 namespace SunamoThisApp;
 
-public class ThisApp : ThisAppSE
+public class ThisApp
 {
+    /// <summary>
+    /// Name = Solution
+    /// Project = Project
+    /// In selling is without spaces
+    /// </summary>
+    public static string Name;
+
+    public static void SetName(string name)
+    {
+        Name = name;
+    }
+
     //public static Langs l = Langs.en;
     public static bool useShortAsDt = true;
     public static bool runInDebug = true;
