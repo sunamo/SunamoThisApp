@@ -18,5 +18,5 @@ global using System.Net;
 global using SunamoThisApp;
 global using SunamoThisApp._sunamo;
 global using SunamoThisApp._sunamo.SunamoStringGetLines;
-global using SunamoThisApp._sunamo.SunamoXlfKeys;
+
 global using SunamoThisApp._public.SunamoExceptions.Data;
