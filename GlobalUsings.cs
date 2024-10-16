@@ -7,7 +7,7 @@ global using System.Linq;
 global using SunamoThisApp.Helpers;
 global using SunamoThisApp._sunamo.SunamoStringSubstring;
 global using SunamoThisApp._sunamo.SunamoStringTrim;
-global using SunamoThisApp._sunamo.SunamoValues;
+global using SunamoThisApp;
 global using SunamoThisApp._public.SunamoEnums.Enums;
 global using SunamoThisApp._sunamo.SunamoExceptions;
 global using System.Diagnostics;

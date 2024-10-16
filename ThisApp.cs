@@ -66,7 +66,7 @@ public class ThisApp
         set => project = value;
     }
 
-    public static string _Name => AllStrings.lowbar + Name;
+    public static string _Name => "_" + Name;
 
     /// <summary>
     ///     může být null, pak se EL nebude využívat
