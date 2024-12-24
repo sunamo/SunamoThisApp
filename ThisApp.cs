@@ -14,7 +14,7 @@ public class ThisApp
     public static bool runInDebug = true;
 
     /// <summary>
-    ///     sess.i18n
+    ///     Translate.FromKey
     /// </summary>
     public static Func<string, string> i18n;
 
@@ -85,7 +85,7 @@ public class ThisApp
 
     public static void SetStatusXlf(TypeOfMessageTA st, string key)
     {
-        SetStatus(st, i18n(key));
+        SetStatus(st, FromKey(key));
     }
 
     //public static event SetStatusDelegate StatusSetted;
