@@ -16,7 +16,7 @@ public class ThisApp
     /// <summary>
     ///     Translate.FromKey
     /// </summary>
-    public static Func<string, string> i18n;
+    public static Func<string, string> FromKey;
 
     // Everywhere is used just ThisApp.cd. 
     //public static Dispatcher cd = null;
