@@ -98,6 +98,31 @@ public class ThisApp
             // Dříve pokud bylo StatusSetted null tak vypisovalo do Debugu. Možná by se dalo detekovat že je to UT https://g.co/gemini/share/b99264f846d4 tímto. 
             // Ale možná UT umí sami odchytávat výstup do konzole, takže budu zapisovat jen tam. 
 
+            switch (st)
+            {
+                case TypeOfMessageTA.Error:
+                    CL.Error(format);
+                    break;
+                case TypeOfMessageTA.Warning:
+                    CL.Warning(format);
+                    break;
+                case TypeOfMessageTA.Information:
+                    CL.Information(format);
+                    break;
+                case TypeOfMessageTA.Ordinal:
+                    CL.Information(format);
+                    break;
+                case TypeOfMessageTA.Appeal:
+                    CL.Appeal(format);
+                    break;
+                case TypeOfMessageTA.Success:
+                    CL.Success(format);
+                    break;
+                default:
+                    ThrowEx.NotImplementedCase(st);
+                    break;
+            }
+
             Console.WriteLine(format);
         }
     }
