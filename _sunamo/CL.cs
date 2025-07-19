@@ -1,7 +1,8 @@
-﻿namespace SunamoThisApp._sunamo;
+namespace SunamoThisApp._sunamo;
+
 internal class CL
 {
-    public static void ChangeColorOfConsoleAndWrite(TypeOfMessageTA tz, string text, params object[] args)
+    internal static void ChangeColorOfConsoleAndWrite(TypeOfMessageTA tz, string text, params object[] args)
     {
 
         SetColorOfConsole(tz);
@@ -10,7 +11,7 @@ internal class CL
         SetColorOfConsole(TypeOfMessageTA.Ordinal);
     }
 
-    public static void SetColorOfConsole(TypeOfMessageTA tz)
+    internal static void SetColorOfConsole(TypeOfMessageTA tz)
     {
         var bk = ConsoleColor.White;
 
@@ -46,7 +47,7 @@ internal class CL
     /// </summary>
     /// <param name="text"></param>
     /// <param name="p"></param>
-    public static void Error(string text, params string[] p)
+    internal static void Error(string text, params string[] p)
     {
         ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Error, text, p);
     }
@@ -56,12 +57,12 @@ internal class CL
     /// </summary>
     /// <param name="text"></param>
     /// <param name="p"></param>
-    public static void Warning(string text, params string[] p)
+    internal static void Warning(string text, params string[] p)
     {
         ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Warning, text, p);
     }
 
-    public static void Information(string text, params string[] p)
+    internal static void Information(string text, params string[] p)
     {
         ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Information, text, p);
     }
@@ -71,7 +72,7 @@ internal class CL
     /// </summary>
     /// <param name="text"></param>
     /// <param name="p"></param>
-    public static void Success(string text, params string[] p)
+    internal static void Success(string text, params string[] p)
     {
         ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Success, text, p);
     }
@@ -80,7 +81,7 @@ internal class CL
     ///     RunInCycle both
     /// </summary>
     /// <param name="appeal"></param>
-    public static void Appeal(string appeal)
+    internal static void Appeal(string appeal)
     {
         ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Appeal, appeal);
     }
