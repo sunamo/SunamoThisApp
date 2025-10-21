@@ -1,11 +1,14 @@
+// EN: Variable names have been checked and replaced with self-descriptive names
+// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
+
 namespace SunamoThisApp.Helpers;
 
 public class StatusHelperSunamo
 {
     public static TypeOfMessageTA IsStatusMessage(string resp)
     {
-        var r = resp;
-        return IsStatusMessage(ref r);
+        var result = resp;
+        return IsStatusMessage(ref result);
     }
 
     /// <summary>
