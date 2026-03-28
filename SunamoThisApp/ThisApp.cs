@@ -1,60 +1,58 @@
 namespace SunamoThisApp;
 
+/// <summary>
+/// Central application configuration and status reporting class for Sunamo platform applications.
+/// </summary>
 public class ThisApp
 {
     /// <summary>
-    ///     Name = Solution
-    ///     Project = Project
-    ///     In selling is without spaces
+    /// The solution-level name of the application. In selling it is without spaces.
+    /// Name = Solution, Project = Project.
     /// </summary>
-    public static string Name;
-
-    //public static Langs l = Langs.en;
-    public static bool useShortAsDt = true;
-    public static bool runInDebug = true;
+    public static string Name { get; set; } = null!;
 
     /// <summary>
-    ///     Translate.FromKey
+    /// Whether to use short format for DateTime display.
     /// </summary>
-    public static Func<string, string> FromKey;
-
-    // Everywhere is used just ThisApp.cd. 
-    //public static Dispatcher cd = null;
-    //public static DispatcherPriority cdp = DispatcherPriority.Normal;
-    /*
-     * Nemůže tu být
-     * Pokud si chci vybrat zda má SunamoLogger dědit od SunamoThisApp nebo naopak
-     * tak je logičtější první možnost
-     *
-     * dočasně to musím zakomentovat než vyřeším zbytek možností
-     */
-    //        public static TypedLoggerBase NopeOrDebugTyped()
-    //        {
-    //#if DEBUG2
-    //                    return TypedDebugLogger.Instance;
-    //#elif !DEBUG2
-    //            // Is possible also use CmdApp.ConsoleOrDebugTyped
-    //            return TypedDummyLogger.Instance;
-    //            //return TypedConsoleLogger.Instance;
-    //#endif
-    //        }
-
-    public static bool check = false;
-
-
-    private static string project;
-
-
-    public static readonly bool initialized = false;
-    public static string Namespace = "";
-
-    private static string eventLogName;
-
-    public static /*ResourcesHelper*/ dynamic Resources;
+    public static bool UseShortAsDateTime { get; set; } = true;
 
     /// <summary>
-    ///     Name = Solution
-    ///     Project = Project
+    /// Whether the application is running in debug mode.
+    /// </summary>
+    public static bool RunInDebug { get; set; } = true;
+
+    /// <summary>
+    /// Translation function that resolves a key to a localized string. Used by <see cref="SetStatusXlf"/>.
+    /// </summary>
+    public static Func<string, string> FromKey { get; set; } = null!;
+
+    /// <summary>
+    /// General-purpose check flag for application state.
+    /// </summary>
+    public static bool Check { get; set; }
+
+    private static string? project;
+
+    /// <summary>
+    /// Whether the application has been initialized.
+    /// </summary>
+    public static readonly bool Initialized = false;
+
+    /// <summary>
+    /// The namespace associated with the application.
+    /// </summary>
+    public static string Namespace { get; set; } = "";
+
+    private static string? eventLogName;
+
+    /// <summary>
+    /// Dynamic reference to the application's resource helper.
+    /// </summary>
+    public static dynamic Resources { get; set; } = null!;
+
+    /// <summary>
+    /// The project-level name. Falls back to <see cref="Name"/> if not set.
+    /// Name = Solution, Project = Project.
     /// </summary>
     public static string Project
     {
@@ -66,129 +64,173 @@ public class ThisApp
         set => project = value;
     }
 
-    public static string _Name => "_" + Name;
+    /// <summary>
+    /// Returns the application name prefixed with an underscore.
+    /// </summary>
+    public static string UnderscoreName => "_" + Name;
 
     /// <summary>
-    ///     může být null, pak se EL nebude využívat
+    /// The event log name. Can be null, in which case event logging will not be used.
+    /// The value is automatically truncated to 8 characters if longer.
     /// </summary>
-    public static string EventLogName
+    public static string? EventLogName
     {
         get => eventLogName;
         set => eventLogName = string.IsNullOrEmpty(value) ? null : SHSubstring.SubstringIfAvailable(value, 8);
     }
 
+    /// <summary>
+    /// Sets the application name.
+    /// </summary>
+    /// <param name="name">The name to set.</param>
     public static void SetName(string name)
     {
         Name = name;
     }
 
-
-    public static void SetStatusXlf(TypeOfMessageTA st, string key)
+    /// <summary>
+    /// Sets the status using a translated key from the XLF translation function.
+    /// </summary>
+    /// <param name="typeOfMessage">The type of the status message.</param>
+    /// <param name="key">The translation key to resolve via <see cref="FromKey"/>.</param>
+    public static void SetStatusXlf(TypeOfMessageTA typeOfMessage, string key)
     {
-        SetStatus(st, FromKey(key));
+        SetStatus(typeOfMessage, FromKey(key));
     }
 
-    //public static event SetStatusDelegate StatusSetted;
-
-    public static void SetStatus(TypeOfMessageTA st, string status, params string[] args)
+    /// <summary>
+    /// Sets and displays a formatted status message with the specified type.
+    /// </summary>
+    /// <param name="typeOfMessage">The type of the status message.</param>
+    /// <param name="text">The status message format string.</param>
+    /// <param name="args">Optional format arguments for the status message.</param>
+    public static void SetStatus(TypeOfMessageTA typeOfMessage, string text, params string[] args)
     {
-        var format = string.Format(status, args).Trim();
-        if (format != string.Empty)
+        var formattedText = string.Format(text, args).Trim();
+        if (formattedText != string.Empty)
         {
-            // Dříve pokud bylo StatusSetted null tak vypisovalo do Debugu. Možná by se dalo detekovat že je to UT https://g.co/gemini/share/b99264f846d4 tímto. 
-            // Ale možná UT umí sami odchytávat výstup do konzole, takže budu zapisovat jen tam. 
-
-            switch (st)
+            switch (typeOfMessage)
             {
                 case TypeOfMessageTA.Error:
-                    CL.Error(format);
+                    CL.Error(formattedText);
                     break;
                 case TypeOfMessageTA.Warning:
-                    CL.Warning(format);
+                    CL.Warning(formattedText);
                     break;
                 case TypeOfMessageTA.Information:
-                    CL.Information(format);
+                    CL.Information(formattedText);
                     break;
                 case TypeOfMessageTA.Ordinal:
-                    CL.Information(format);
+                    CL.Information(formattedText);
                     break;
                 case TypeOfMessageTA.Appeal:
-                    CL.Appeal(format);
+                    CL.Appeal(formattedText);
                     break;
                 case TypeOfMessageTA.Success:
-                    CL.Success(format);
+                    CL.Success(formattedText);
                     break;
                 default:
-                    ThrowEx.NotImplementedCase(st);
+                    ThrowEx.NotImplementedCase(typeOfMessage);
                     break;
             }
 
-            Console.WriteLine(format);
-        }
-    }
-
-    public static void StatusFromText(string v)
-    {
-        if (!string.IsNullOrEmpty(v))
-        {
-            var tom = StatusHelperSunamo.IsStatusMessage(ref v);
-            SetStatus(tom, v);
+            Console.WriteLine(formattedText);
         }
     }
 
     /// <summary>
-    ///     Strings which is on lines calling this method is not translate
-    ///     Debug method when I running app on release and app is behave extraordinary
+    /// Parses the text for a status message prefix and displays it with the appropriate message type.
     /// </summary>
-    /// <param name="v"></param>
-    /// <param name="o"></param>
-    public static void a(string v, params string[] o)
+    /// <param name="text">The text to parse and display.</param>
+    public static void StatusFromText(string text)
     {
-        Appeal(v, o);
-    }
-
-    public static void Success(string v, params string[] o)
-    {
-        SetStatus(TypeOfMessageTA.Success, v, o);
-    }
-
-    public static void Info(string v, params string[] o)
-    {
-        SetStatus(TypeOfMessageTA.Information, v, o);
-    }
-
-    public static void Error(string v, params string[] o)
-    {
-        SetStatus(TypeOfMessageTA.Error, v, o);
-    }
-
-    public static void Warning(string v, params string[] o)
-    {
-        SetStatus(TypeOfMessageTA.Warning, v, o);
-    }
-
-    public static void Ordinal(string v, params string[] o)
-    {
-        SetStatus(TypeOfMessageTA.Ordinal, v, o);
-    }
-
-    public static void Appeal(string v, params string[] o)
-    {
-        SetStatus(TypeOfMessageTA.Appeal, v, o);
-    }
-
-    public static void ResultWithException<T>(T Data, string exc, string replacementWhenSuccess = null,
-        bool showToStringWhenSuccess = false)
-    {
-        if (!EqualityComparer<T>.Default.Equals(Data, default))
+        if (!string.IsNullOrEmpty(text))
         {
-            if (showToStringWhenSuccess)
-                Info(Data.ToString());
+            var typeOfMessage = StatusHelperSunamo.IsStatusMessage(ref text);
+            SetStatus(typeOfMessage, text);
+        }
+    }
+
+    /// <summary>
+    /// Displays a success status message.
+    /// </summary>
+    /// <param name="text">The message format string.</param>
+    /// <param name="args">Optional format arguments.</param>
+    public static void Success(string text, params string[] args)
+    {
+        SetStatus(TypeOfMessageTA.Success, text, args);
+    }
+
+    /// <summary>
+    /// Displays an informational status message.
+    /// </summary>
+    /// <param name="text">The message format string.</param>
+    /// <param name="args">Optional format arguments.</param>
+    public static void Info(string text, params string[] args)
+    {
+        SetStatus(TypeOfMessageTA.Information, text, args);
+    }
+
+    /// <summary>
+    /// Displays an error status message.
+    /// </summary>
+    /// <param name="text">The message format string.</param>
+    /// <param name="args">Optional format arguments.</param>
+    public static void Error(string text, params string[] args)
+    {
+        SetStatus(TypeOfMessageTA.Error, text, args);
+    }
+
+    /// <summary>
+    /// Displays a warning status message.
+    /// </summary>
+    /// <param name="text">The message format string.</param>
+    /// <param name="args">Optional format arguments.</param>
+    public static void Warning(string text, params string[] args)
+    {
+        SetStatus(TypeOfMessageTA.Warning, text, args);
+    }
+
+    /// <summary>
+    /// Displays an ordinal (default) status message.
+    /// </summary>
+    /// <param name="text">The message format string.</param>
+    /// <param name="args">Optional format arguments.</param>
+    public static void Ordinal(string text, params string[] args)
+    {
+        SetStatus(TypeOfMessageTA.Ordinal, text, args);
+    }
+
+    /// <summary>
+    /// Displays an appeal status message to draw user attention.
+    /// </summary>
+    /// <param name="text">The message format string.</param>
+    /// <param name="args">Optional format arguments.</param>
+    public static void Appeal(string text, params string[] args)
+    {
+        SetStatus(TypeOfMessageTA.Appeal, text, args);
+    }
+
+    /// <summary>
+    /// Reports the result of an operation: shows info on success or error on failure.
+    /// </summary>
+    /// <typeparam name="T">The type of the result data.</typeparam>
+    /// <param name="data">The result data to evaluate.</param>
+    /// <param name="exceptionText">The error message to display if the data is default.</param>
+    /// <param name="replacementWhenSuccess">Optional text to display instead of ToString on success.</param>
+    /// <param name="isShowingToStringOnSuccess">Whether to display the data's ToString value on success.</param>
+    public static void ResultWithException<T>(T data, string exceptionText, string? replacementWhenSuccess = null,
+        bool isShowingToStringOnSuccess = false)
+    {
+        if (!EqualityComparer<T>.Default.Equals(data, default))
+        {
+            if (isShowingToStringOnSuccess)
+                Info(data!.ToString()!);
             else if (replacementWhenSuccess != null) Info(replacementWhenSuccess);
         }
         else
         {
-            Error(exc);
+            Error(exceptionText);
         }
     }
 }

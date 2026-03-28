@@ -1,88 +1,103 @@
 namespace SunamoThisApp._sunamo;
 
+/// <summary>
+/// Console logging helper that writes colored messages to the console based on message type.
+/// </summary>
 internal class CL
 {
-    internal static void ChangeColorOfConsoleAndWrite(TypeOfMessageTA tz, string text, params object[] args)
+    /// <summary>
+    /// Changes the console color according to the message type, writes the text, then resets to ordinal.
+    /// </summary>
+    /// <param name="typeOfMessage">The type of message determining the console color.</param>
+    /// <param name="text">The format string to write.</param>
+    /// <param name="args">Optional format arguments.</param>
+    internal static void ChangeColorOfConsoleAndWrite(TypeOfMessageTA typeOfMessage, string text, params object[] args)
     {
-
-        SetColorOfConsole(tz);
-
+        SetColorOfConsole(typeOfMessage);
         Console.WriteLine(text, args);
         SetColorOfConsole(TypeOfMessageTA.Ordinal);
     }
 
-    internal static void SetColorOfConsole(TypeOfMessageTA tz)
+    /// <summary>
+    /// Sets the console foreground color based on the message type.
+    /// </summary>
+    /// <param name="typeOfMessage">The type of message determining the color.</param>
+    internal static void SetColorOfConsole(TypeOfMessageTA typeOfMessage)
     {
-        var bk = ConsoleColor.White;
+        var consoleColor = ConsoleColor.White;
 
-        switch (tz)
+        switch (typeOfMessage)
         {
             case TypeOfMessageTA.Error:
-                bk = ConsoleColor.Red;
+                consoleColor = ConsoleColor.Red;
                 break;
             case TypeOfMessageTA.Warning:
-                bk = ConsoleColor.Yellow;
+                consoleColor = ConsoleColor.Yellow;
                 break;
             case TypeOfMessageTA.Information:
-
             case TypeOfMessageTA.Ordinal:
-                bk = ConsoleColor.White;
+                consoleColor = ConsoleColor.White;
                 break;
             case TypeOfMessageTA.Appeal:
-                bk = ConsoleColor.Magenta;
+                consoleColor = ConsoleColor.Magenta;
                 break;
             case TypeOfMessageTA.Success:
-                bk = ConsoleColor.Green;
+                consoleColor = ConsoleColor.Green;
                 break;
         }
 
-        if (bk != ConsoleColor.Black)
-            Console.ForegroundColor = bk;
+        if (consoleColor != ConsoleColor.Black)
+            Console.ForegroundColor = consoleColor;
         else
             Console.ResetColor();
     }
 
     /// <summary>
-    ///     For TextWriter use Error2
+    /// Writes an error message to the console. For TextWriter use Error2.
     /// </summary>
-    /// <param name="text"></param>
-    /// <param name="p"></param>
-    internal static void Error(string text, params string[] p)
+    /// <param name="text">The error message format string.</param>
+    /// <param name="args">Optional format arguments.</param>
+    internal static void Error(string text, params string[] args)
     {
-        ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Error, text, p);
+        ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Error, text, args);
     }
 
     /// <summary>
-    ///     In every task - Start
+    /// Writes a warning message to the console.
     /// </summary>
-    /// <param name="text"></param>
-    /// <param name="p"></param>
-    internal static void Warning(string text, params string[] p)
+    /// <param name="text">The warning message format string.</param>
+    /// <param name="args">Optional format arguments.</param>
+    internal static void Warning(string text, params string[] args)
     {
-        ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Warning, text, p);
-    }
-
-    internal static void Information(string text, params string[] p)
-    {
-        ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Information, text, p);
+        ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Warning, text, args);
     }
 
     /// <summary>
-    ///     In every task - end
+    /// Writes an informational message to the console.
     /// </summary>
-    /// <param name="text"></param>
-    /// <param name="p"></param>
-    internal static void Success(string text, params string[] p)
+    /// <param name="text">The informational message format string.</param>
+    /// <param name="args">Optional format arguments.</param>
+    internal static void Information(string text, params string[] args)
     {
-        ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Success, text, p);
+        ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Information, text, args);
     }
 
     /// <summary>
-    ///     RunInCycle both
+    /// Writes a success message to the console.
     /// </summary>
-    /// <param name="appeal"></param>
-    internal static void Appeal(string appeal)
+    /// <param name="text">The success message format string.</param>
+    /// <param name="args">Optional format arguments.</param>
+    internal static void Success(string text, params string[] args)
     {
-        ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Appeal, appeal);
+        ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Success, text, args);
+    }
+
+    /// <summary>
+    /// Writes an appeal message to the console to draw user attention.
+    /// </summary>
+    /// <param name="text">The appeal message text.</param>
+    internal static void Appeal(string text)
+    {
+        ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Appeal, text);
     }
 }
