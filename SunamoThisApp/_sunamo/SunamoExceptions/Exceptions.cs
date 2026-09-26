@@ -63,7 +63,7 @@ internal sealed partial class Exceptions
     {
         StackTrace stackTrace = new();
         var methodBase = stackTrace.GetFrame(depth)?.GetMethod();
-        if (methodBase == null)
+        if (methodBase is null)
         {
             return "Method name could not be obtained";
         }
@@ -80,7 +80,7 @@ internal sealed partial class Exceptions
     internal static string? NotImplementedCase(string prefix, object notImplementedName)
     {
         var forSuffix = string.Empty;
-        if (notImplementedName != null)
+        if (notImplementedName is not null)
         {
             forSuffix = " for ";
             if (notImplementedName.GetType() == typeof(Type))

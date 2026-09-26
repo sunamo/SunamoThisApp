@@ -58,7 +58,7 @@ public class ThisApp
     {
         get
         {
-            if (project == null) return Name;
+            if (project is null) return Name;
             return project;
         }
         set => project = value;
@@ -226,7 +226,7 @@ public class ThisApp
         {
             if (isShowingToStringOnSuccess)
                 Info(data!.ToString()!);
-            else if (replacementWhenSuccess != null) Info(replacementWhenSuccess);
+            else if (replacementWhenSuccess is not null) Info(replacementWhenSuccess);
         }
         else
         {

@@ -12,7 +12,5 @@ internal class SHSubstring
     /// <param name="length">The maximum length of the resulting substring.</param>
     /// <returns>A substring of the given length, or the original text if shorter.</returns>
     internal static string SubstringIfAvailable(string text, int length)
-    {
-        return text.Length > length ? text.Substring(0, length) : text;
-    }
+        => text.Length > length ? text.Substring(0, length) : text;
 }
