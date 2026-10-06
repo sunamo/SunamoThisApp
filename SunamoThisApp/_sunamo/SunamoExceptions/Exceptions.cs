@@ -1,15 +1,7 @@
 namespace SunamoThisApp._sunamo.SunamoExceptions;
 
-/// <summary>
-/// Provides helper methods for exception information extraction and formatting.
-/// </summary>
 internal sealed partial class Exceptions
 {
-    /// <summary>
-    /// Extracts the type name, method name, and full stack trace text from the current call stack.
-    /// </summary>
-    /// <param name="isFillingAlsoFirstTwo">Whether to also fill the type and method name from the first non-ThrowEx frame.</param>
-    /// <returns>A tuple of (typeName, methodName, stackTraceText).</returns>
     internal static Tuple<string, string, string> PlaceOfException(bool isFillingAlsoFirstTwo = true)
     {
         StackTrace stackTrace = new();
@@ -38,12 +30,6 @@ internal sealed partial class Exceptions
         return new Tuple<string, string, string>(typeName, methodName, string.Join(Environment.NewLine, lines));
     }
 
-    /// <summary>
-    /// Parses a stack trace line to extract the type name and method name.
-    /// </summary>
-    /// <param name="line">A single stack trace line to parse.</param>
-    /// <param name="typeName">The extracted type name.</param>
-    /// <param name="methodName">The extracted method name.</param>
     internal static void TypeAndMethodName(string line, out string typeName, out string methodName)
     {
         var methodCallText = line.Split(new string[] { "at " }, StringSplitOptions.None)[1].Trim();
@@ -54,11 +40,6 @@ internal sealed partial class Exceptions
         typeName = string.Join(".", nameParts);
     }
 
-    /// <summary>
-    /// Returns the name of the calling method at the specified stack depth.
-    /// </summary>
-    /// <param name="depth">The stack frame depth to retrieve the method name from.</param>
-    /// <returns>The name of the calling method, or a fallback message if unavailable.</returns>
     internal static string CallingMethod(int depth = 1)
     {
         StackTrace stackTrace = new();
@@ -71,12 +52,6 @@ internal sealed partial class Exceptions
         return methodName;
     }
 
-    /// <summary>
-    /// Creates an error message for a not-implemented case scenario.
-    /// </summary>
-    /// <param name="prefix">A prefix to prepend to the error message.</param>
-    /// <param name="notImplementedName">The object or type name that is not implemented.</param>
-    /// <returns>The formatted error message, or <c>null</c>.</returns>
     internal static string? NotImplementedCase(string prefix, object notImplementedName)
     {
         var forSuffix = string.Empty;
@@ -92,11 +67,6 @@ internal sealed partial class Exceptions
         ".";
     }
 
-    /// <summary>
-    /// Returns the prefix formatted with a colon separator, or empty string if blank.
-    /// </summary>
-    /// <param name="prefix">The prefix text to format.</param>
-    /// <returns>The formatted prefix or empty string.</returns>
     internal static string FormatPrefix(string prefix)
     {
         return string.IsNullOrWhiteSpace(prefix) ? string.Empty : prefix + ": ";

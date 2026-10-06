@@ -1,5 +1,10 @@
 # SunamoThisApp
 
+## Short description
+
+Jeden ze dvou základních stavebních kamenů aplikační platformy sunamo (druhý je SunamoPlatformUwpInterop). Obsahuje sdílené třídy aplikační vrstvy. Součást sbírky pinp.
+
+
 One of base foundation for sunamo's app platform - second is SunamoPlatformUwpInterop
 
 ## Overview
