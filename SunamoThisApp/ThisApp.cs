@@ -3,7 +3,6 @@ namespace SunamoThisApp;
 public class ThisApp
 {
     // The solution-level name of the application. In selling it is without spaces.
-    // Name = Solution, Project = Project.
     public static string Name { get; set; } = null!;
 
     public static bool UseShortAsDateTime { get; set; } = true;
@@ -24,7 +23,6 @@ public class ThisApp
 
     public static dynamic Resources { get; set; } = null!;
 
-    // Name = Solution, Project = Project.
     public static string Project
     {
         get
