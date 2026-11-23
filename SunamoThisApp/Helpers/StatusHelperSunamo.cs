@@ -1,39 +1,81 @@
 namespace SunamoThisApp.Helpers;
 
-public class StatusHelperSunamo
+/// <summary>
+/// Recognizes the type of a status message from its text prefix (for example "error:").
+/// </summary>
+public static class StatusHelperSunamo
 {
-    // Determines the message type from the text prefix without modifying the input.
-    public static TypeOfMessageTA IsStatusMessage(string text)
+    /// <summary>
+    /// Prefix of an error message.
+    /// </summary>
+    public const string ErrorPrefix = "error:";
+
+    /// <summary>
+    /// Prefix of a warning message.
+    /// </summary>
+    public const string WarningPrefix = "warning:";
+
+    /// <summary>
+    /// Prefix of a success message.
+    /// </summary>
+    public const string SuccessPrefix = "success:";
+
+    /// <summary>
+    /// Short prefix of an informational message.
+    /// </summary>
+    public const string InfoPrefix = "info:";
+
+    /// <summary>
+    /// Long prefix of an informational message.
+    /// </summary>
+    public const string InformationPrefix = "information:";
+
+    /// <summary>
+    /// Prefix of a message asking the user to do something.
+    /// </summary>
+    public const string AppealPrefix = "appeal:";
+
+    /// <summary>
+    /// Returns the type of the message given by its prefix, without changing the text.
+    /// The prefix is matched regardless of letter case; a text without a known prefix is an ordinal message.
+    /// </summary>
+    /// <param name="text">Text of the message.</param>
+    /// <returns>Type of the message.</returns>
+    public static TypeOfMessageTA ParseMessageType(string text)
     {
-        var result = text;
-        return IsStatusMessage(ref result);
+        var textWithoutPrefix = text;
+        return ParseMessageType(ref textWithoutPrefix);
     }
 
-    // Determines the message type from the text prefix and trims the matched prefix from the text.
-    // If no prefix matches, returns TypeOfMessageTA.Ordinal.
-    public static TypeOfMessageTA IsStatusMessage(ref string text)
+    /// <summary>
+    /// Returns the type of the message given by its prefix and removes the matched prefix from the text.
+    /// The prefix is matched regardless of letter case; a text without a known prefix is an ordinal message.
+    /// </summary>
+    /// <param name="text">Text of the message; the matched prefix is removed from it.</param>
+    /// <returns>Type of the message.</returns>
+    public static TypeOfMessageTA ParseMessageType(ref string text)
     {
         if (SHTrim.TrimIfStartsWith(ref text, ErrorPrefix))
         {
             return TypeOfMessageTA.Error;
         }
-        else if (SHTrim.TrimIfStartsWith(ref text, WarningPrefix))
+
+        if (SHTrim.TrimIfStartsWith(ref text, WarningPrefix))
         {
             return TypeOfMessageTA.Warning;
         }
-        else if (SHTrim.TrimIfStartsWith(ref text, SuccessPrefix))
+
+        if (SHTrim.TrimIfStartsWith(ref text, SuccessPrefix))
         {
             return TypeOfMessageTA.Success;
         }
-        else if (SHTrim.TrimIfStartsWith(ref text, InfoPrefix))
+
+        if (SHTrim.TrimIfStartsWith(ref text, InfoPrefix) || SHTrim.TrimIfStartsWith(ref text, InformationPrefix))
         {
             return TypeOfMessageTA.Information;
         }
-        else if (SHTrim.TrimIfStartsWith(ref text, InformationPrefix))
-        {
-            return TypeOfMessageTA.Information;
-        }
-        else if (SHTrim.TrimIfStartsWith(ref text, AppealPrefix))
+
+        if (SHTrim.TrimIfStartsWith(ref text, AppealPrefix))
         {
             return TypeOfMessageTA.Appeal;
         }
@@ -41,10 +83,25 @@ public class StatusHelperSunamo
         return TypeOfMessageTA.Ordinal;
     }
 
-    public const string ErrorPrefix = "error:";
-    public const string WarningPrefix = "warning:";
-    public const string SuccessPrefix = "success:";
-    public const string InfoPrefix = "info:";
-    public const string InformationPrefix = "information:";
-    public const string AppealPrefix = "appeal:";
+    /// <summary>
+    /// Returns the type of the message given by its prefix, without changing the text.
+    /// </summary>
+    /// <param name="text">Text of the message.</param>
+    /// <returns>Type of the message.</returns>
+    [Obsolete("Use ParseMessageType; this method returns the type of the message, not a yes/no answer.")]
+    public static TypeOfMessageTA IsStatusMessage(string text)
+    {
+        return ParseMessageType(text);
+    }
+
+    /// <summary>
+    /// Returns the type of the message given by its prefix and removes the matched prefix from the text.
+    /// </summary>
+    /// <param name="text">Text of the message; the matched prefix is removed from it.</param>
+    /// <returns>Type of the message.</returns>
+    [Obsolete("Use ParseMessageType; this method returns the type of the message, not a yes/no answer.")]
+    public static TypeOfMessageTA IsStatusMessage(ref string text)
+    {
+        return ParseMessageType(ref text);
+    }
 }

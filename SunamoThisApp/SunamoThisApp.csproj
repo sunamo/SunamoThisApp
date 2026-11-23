@@ -4,45 +4,33 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
-    <Version>26.5.18.4</Version>
-    <Description>One of base foundation for sunamo's app platform - second is
-      SunamoPlatformUwpInterop</Description>
+    <Version>26.11.23.1</Version>
+    <Description>Application identity (name, project, event log name) and colored status messages for console and UI applications of the sunamo platform.</Description>
     <Authors>www.sunamo.cz</Authors>
     <Copyright>www.sunamo.cz</Copyright>
     <PackageProjectUrl>https://sunamo.github.io/PlatformIndependentNuGetPackages/SunamoThisApp/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/sunamo/SunamoThisApp.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageReadmeFile>readme.md</PackageReadmeFile>
-    <PackageReleaseNotes>y</PackageReleaseNotes>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageTags>sunamo;dotnet;console;status;messages;application</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <IsPackable>true</IsPackable>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <EnablePackageValidation>true</EnablePackageValidation>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <EmbedAllSources>true</EmbedAllSources>
-    <Optimize>false</Optimize>
-  </PropertyGroup>
-  <PropertyGroup>
     <DebugType>portable</DebugType>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="readme.md" Pack="True" PackagePath="." />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.2" Pack="True" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.102" PrivateAssets="all" />
-  </ItemGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>$(DefineConstants);ASYNC</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>$(DefineConstants);ASYNC</DefineConstants>
-  </PropertyGroup>
-  <ItemGroup>
+    <None Include="..\README.md" Pack="True" PackagePath="." />
+    <None Include="icon.png" Pack="True" PackagePath="." />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="11.0.100" PrivateAssets="all" />
     <PackageReference Include="PolySharp" Version="1.15.0" PrivateAssets="all" />
-  </ItemGroup>  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
   </ItemGroup>
 </Project>
