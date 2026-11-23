@@ -1,32 +1,32 @@
 namespace SunamoThisApp._public.SunamoEnums.Enums;
 
 /// <summary>
-/// Represents the type of message TA type.
+/// Type of a status message; it decides the color and the output stream of the message.
 /// </summary>
 public enum TypeOfMessageTA
 {
     /// <summary>
-    /// The error value.
+    /// Something failed; written in red to the standard error stream.
     /// </summary>
     Error,
     /// <summary>
-    /// The warning value.
+    /// Something needs attention but did not fail; written in yellow.
     /// </summary>
     Warning,
     /// <summary>
-    /// The information value.
+    /// Information about what the application is doing; written in white.
     /// </summary>
     Information,
     /// <summary>
-    /// The ordinal value.
+    /// Message without a specific type; written in white.
     /// </summary>
     Ordinal,
     /// <summary>
-    /// The appeal value.
+    /// Request for the user to do something; written in magenta.
     /// </summary>
     Appeal,
     /// <summary>
-    /// The success value.
+    /// Something finished successfully; written in green.
     /// </summary>
     Success
 }

@@ -1,68 +1,52 @@
 namespace SunamoThisApp._sunamo;
 
-// Console logging helper that writes colored messages to the console based on message type.
-internal class CL
+/// <summary>
+/// Writes status messages to the console in the color of their type.
+/// </summary>
+internal static class CL
 {
-    internal static void ChangeColorOfConsoleAndWrite(TypeOfMessageTA typeOfMessage, string text, params object[] args)
-    {
-        SetColorOfConsole(typeOfMessage);
-        Console.WriteLine(text, args);
-        SetColorOfConsole(TypeOfMessageTA.Ordinal);
-    }
+    // Color, text and color restore of one message must not interleave with another thread.
+    private static readonly object ConsoleLock = new();
 
-    internal static void SetColorOfConsole(TypeOfMessageTA typeOfMessage)
+    /// <summary>
+    /// Writes one message in the color of its type and then restores the previous console color.
+    /// Errors go to the standard error stream, everything else to the standard output.
+    /// </summary>
+    /// <param name="typeOfMessage">Type of the message.</param>
+    /// <param name="text">Final text of the message; it is written as is, without formatting.</param>
+    internal static void Write(TypeOfMessageTA typeOfMessage, string text)
     {
-        var consoleColor = ConsoleColor.White;
+        var writer = typeOfMessage == TypeOfMessageTA.Error ? Console.Error : Console.Out;
 
-        switch (typeOfMessage)
+        lock (ConsoleLock)
         {
-            case TypeOfMessageTA.Error:
-                consoleColor = ConsoleColor.Red;
-                break;
-            case TypeOfMessageTA.Warning:
-                consoleColor = ConsoleColor.Yellow;
-                break;
-            case TypeOfMessageTA.Information:
-            case TypeOfMessageTA.Ordinal:
-                consoleColor = ConsoleColor.White;
-                break;
-            case TypeOfMessageTA.Appeal:
-                consoleColor = ConsoleColor.Magenta;
-                break;
-            case TypeOfMessageTA.Success:
-                consoleColor = ConsoleColor.Green;
-                break;
+            var previousColor = Console.ForegroundColor;
+            Console.ForegroundColor = ColorOf(typeOfMessage);
+            try
+            {
+                writer.WriteLine(text);
+            }
+            finally
+            {
+                Console.ForegroundColor = previousColor;
+            }
         }
-
-        if (consoleColor != ConsoleColor.Black)
-            Console.ForegroundColor = consoleColor;
-        else
-            Console.ResetColor();
     }
 
-    // For TextWriter use Error2.
-    internal static void Error(string text, params string[] args)
+    /// <summary>
+    /// Returns the console color used for the type of message.
+    /// </summary>
+    /// <param name="typeOfMessage">Type of the message.</param>
+    /// <returns>Console color of the message.</returns>
+    internal static ConsoleColor ColorOf(TypeOfMessageTA typeOfMessage)
     {
-        ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Error, text, args);
-    }
-
-    internal static void Warning(string text, params string[] args)
-    {
-        ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Warning, text, args);
-    }
-
-    internal static void Information(string text, params string[] args)
-    {
-        ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Information, text, args);
-    }
-
-    internal static void Success(string text, params string[] args)
-    {
-        ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Success, text, args);
-    }
-
-    internal static void Appeal(string text)
-    {
-        ChangeColorOfConsoleAndWrite(TypeOfMessageTA.Appeal, text);
+        return typeOfMessage switch
+        {
+            TypeOfMessageTA.Error => ConsoleColor.Red,
+            TypeOfMessageTA.Warning => ConsoleColor.Yellow,
+            TypeOfMessageTA.Appeal => ConsoleColor.Magenta,
+            TypeOfMessageTA.Success => ConsoleColor.Green,
+            _ => ConsoleColor.White
+        };
     }
 }
